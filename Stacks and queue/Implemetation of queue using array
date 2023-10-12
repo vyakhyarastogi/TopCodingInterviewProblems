@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+
+class queue{
+public:
+
+int *arr;
+int front;
+int rear;
+int size;
+
+queue(int size){
+	this->size=size;
+	front=0;
+	rear=0;
+	arr=new int[size];
+
+}
+
+void push(int data){
+	if(front==size){
+		cout<<"queue is full"<<endl;
+	}
+	else{
+		arr[rear]=data;
+		rear++;
+	}
+}
+
+void pop(){
+	if(front==rear){
+		cout<<"queue is empty"<<endl;
+	}
+	else{
+		front++;
+		
+	}
+}
+
+int getFront(){
+	if(front==rear){
+		cout<<"queue is empty"<<endl;
+		return -1;
+	}
+	else{
+		return arr[front];
+	}
+}
+
+bool isEmpty(){
+	if(front==rear){
+		return true;
+	}
+	else{
+		return false;
+	}
+	
+}
+
+int getSize(){
+	return rear-front;
+}
+
+
+};
+
+
+int main(){
+	queue q(5);
+	q.push(1);
+	q.push(2);
+	q.push(3);
+	q.push(4);
+	q.push(5);
+
+
+	
+	
+
+
+	
+	
+	cout<<"size of queue is:"<<q.getSize()<<endl;
+
+	cout<<"element at front of queue is:"<<q.getFront()<<endl;
+
+	cout<<"printing the queue"<<endl;
+
+	while(!q.isEmpty()){
+		cout<<q.getFront()<<" ";
+		q.pop();
+	}
+	cout<<endl;
+
+	
+
+	
+
+	
+	
+}
