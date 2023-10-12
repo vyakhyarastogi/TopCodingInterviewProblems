@@ -1,0 +1,60 @@
+#include <bits/stdc++.h> 
+#include<vector>
+
+int f(int index,vector<int>&heights){
+     if(index==0){
+        return 0;
+    }
+    int left=f(index-1,heights)+abs(heights[index]-heights[index-1]);
+    int right=INT_MAX;
+    if(index>1){
+        right=f(index-2,heights)+abs(heights[index]-heights[index-2]);
+    }
+
+    return min(left,right); 
+}
+
+int tabulation(int index,vector<int>heights){
+    // base case
+    int n=heights.size();
+    vector<int>dp(n,-1);
+    dp[0]=0;
+
+    for(int i=1;i<n;i++){
+        int left=dp[i-1]+abs(heights[i]-heights[i-1]);
+        int right=INT_MAX;
+        if(i>1){
+            right=dp[i-2]+abs(heights[i]-heights[i-2]);
+
+
+        }
+        dp[i]=min(left,right);
+       
+    }
+    return dp[n-1];
+}
+
+int SO(int index,vector<int>&heights){
+    //dp[i-1]=prev2; dp[i-2]=prev;
+
+    
+
+
+}
+
+
+int frogJump(int n, vector<int> &heights)
+{
+    // Write your code here.
+    // int index=n-1;
+   
+
+    // int ans=f(index,heights);
+    // return ans;
+    int index=n-1;
+
+    int ans=tabulation(index,heights);
+    return ans;
+    
+   
+}
