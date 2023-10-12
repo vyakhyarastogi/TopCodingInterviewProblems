@@ -1,0 +1,49 @@
+#Climbing Stairs
+
+#include <bits/stdc++.h> 
+
+int tabular(int nStairs){
+    vector<int>dp(nStairs+1,INT_MIN);
+
+    dp[0]=1;
+    dp[1]=1;
+
+    for(int i=2;i<=nStairs;i++){
+        dp[i] = (dp[i-1]%1000000007 + dp[i-2]%1000000007)%1000000007;
+
+    }
+
+    return dp[nStairs];
+}
+
+int optimal(int nStairs){
+    int prev2=1;
+    int prev=1;
+
+    for(int i=2;i<=nStairs;i++){
+        int curr= prev2%1000000007 + prev%1000000007)%1000000007;
+        prev2=prev;
+        prev=curr;
+    }
+    return prev;
+}
+
+int stairs(int nStairs){
+    // base case
+    if(nStairs==0) return 1;
+    if(nStairs==1) return 1;
+
+    int ans=stairs(nStairs-1)+stairs(nStairs-2);
+    return ans;
+}
+int countDistinctWays(int nStairs) {
+    //  Write your code here.
+    // int ans=stairs(nStairs);
+    // return ans;
+
+    // int ans=tabular(nStairs);
+    // return ans;
+
+    int ans=optimal(nStairs);
+    return ans;
+}
