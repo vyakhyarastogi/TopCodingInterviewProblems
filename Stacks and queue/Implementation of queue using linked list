@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+class Queue{
+public:
+
+int val;
+int size;
+Queue*next;
+Queue*front=nullptr,*rare=nullptr;
+
+Queue(int data){
+	this->val=data;
+	this->next=nullptr;
+	this->size=0;
+}
+
+bool isEmpty(){
+	return front==nullptr;
+}
+
+int peek(){
+	if(isEmpty()){
+		cout<<"queue is empty"<<endl;
+		return -1;
+	}
+	else{
+		return front->val;
+	}
+}
+void Enqueue(int value){
+	Queue*temp=new Queue(value);
+	if(temp==nullptr){
+		cout<<"queue is full"<<endl;
+	}
+	else{
+		if(front==nullptr){
+			front=temp;
+			rare=temp;
+		}
+		else{
+			rare->next=temp;
+			rare=temp;
+		}
+		cout<<value<<" Inserted into queue "<<endl;
+		size++;
+	}
+}
+
+void dequeue(){
+	if(front==nullptr){
+		cout<<"queue is empty"<<endl;
+	
+	}
+	else{
+		cout<<front->val<<" Removed from queue"<<endl;
+		Queue*temp=front;
+		front=front->next;
+		delete temp;
+		size--;
+	}
+}
+
+int getSize(){
+	return size;
+	
+}
+
+
+
+
+};
+
+int main() {
+	Queue q(5);
+	q.Enqueue(10);
+	q.Enqueue(20);
+	q.Enqueue(30);
+	q.Enqueue(40);
+	q.Enqueue(50);
+
+	q.dequeue();
+
+	cout<<"The size of the queue is:"<<q.getSize()<<endl;
+
+	cout<<"The peek element of the queue is:"<<q.peek()<<endl;
+
+}
