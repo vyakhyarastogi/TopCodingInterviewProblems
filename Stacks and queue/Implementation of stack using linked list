@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+class Stack
+{
+public:
+    int data;
+    Stack *next;
+    Stack *top;
+    int size;
+
+    Stack(int d)
+    {
+        this->data = d;
+        this->next = NULL;
+        this->size = 0;
+    }
+
+    void stackPush(int x)
+    {
+        Stack *element = new Stack(x);
+        element->next = top;
+        top = element;
+        cout << "element pushed:" << x << endl;
+        size++;
+    }
+
+    int stackPop()
+    {
+        if (top == NULL)
+        {
+            return -1;
+        }
+
+        int topData = top->data;
+        Stack *temp = top;
+        top = top->next;
+        delete temp;
+        size--;
+
+        return topData;
+    }
+
+    int stackSize()
+    {
+        return size;
+    }
+
+    bool stackIsEmpty()
+    {
+        return top == NULL;
+    }
+
+    int stackPeek()
+    {
+        if (top == NULL)
+        {
+            return -1;
+        }
+        else
+        {
+            return top->data;
+        }
+    }
+
+    void printStack()
+    {
+        Stack *current = top;
+        while (current != NULL)
+        {
+            cout << current->data << endl;
+            current = current->next;
+        }
+    }
+};
+
+int main()
+{
+    Stack s(5);
+    s.stackPush(10);
+    s.stackPush(20);
+    s.stackPush(30);
+    s.stackPush(40);
+    s.stackPush(50);
+
+    cout << "size of stack is:" << s.stackSize() << endl;
+
+    cout << "printing the stack" << endl;
+
+    s.printStack();
+}
