@@ -1,0 +1,180 @@
+#Brute force: Time Complexity=O(2n)
+
+#include <iostream>
+#include <limits.h>
+#include <stack>
+using namespace std;
+
+class minStack
+{
+    stack<pair<int, int>> st;
+
+public:
+    int data;
+    int top;
+    int size;
+
+    minStack(int data)
+    {
+        this->data = data;
+        this->top = -1;
+    }
+
+    void push(int x)
+    {
+        int mini = INT_MAX;
+        if (st.empty())
+        {
+            mini = x;
+        }
+        else
+        {
+            mini = min(st.top().second, x);
+        }
+        st.push({x, mini});
+    }
+
+    void pop()
+    {
+        st.pop();
+    }
+
+    int topElement()
+    {
+        return st.top().first;
+    }
+
+    int getMin()
+    {
+        return st.top().second;
+    }
+};
+
+int main()
+{
+    minStack st(5);
+
+    st.push(5);
+    st.push(1);
+    st.push(3);
+    st.push(2);
+    st.push(4);
+    cout << "top element in stack is:" << st.topElement() << endl;
+
+    st.pop();
+
+    cout << endl;
+
+    cout << "top element in stack is:" << st.topElement() << endl;
+    cout << "minimum element in the stack is:" << st.getMin() << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#Optimised approach-->SC boils down to 0(1)
+
+#include <iostream>
+#include <limits.h>
+#include <stack>
+using namespace std;
+
+class minStack
+{
+
+public:
+    int data;
+    int top;
+    int size;
+    int mini;
+
+    stack<int> s;
+
+    minStack(int data)
+    {
+        this->data = data;
+        this->top = -1;
+        this->mini = INT_MAX;
+    }
+
+    void push(int data)
+    {
+
+        if (s.empty())
+        {
+            mini = data;
+            s.push(data);
+        }
+        else
+        {
+            if (data < mini)
+            {
+                s.push(2 * data - mini);
+                mini = data;
+            }
+            else
+            {
+                s.push(data);
+            }
+        }
+    }
+
+    void pop()
+    {
+        if (s.empty())
+        {
+            return;
+        }
+
+        int el = s.top();
+        s.pop();
+
+        if (el < mini)
+        {
+            mini = 2 * mini - el;
+        }
+    }
+
+    int topElement()
+    {
+        if (s.empty())
+            return -1;
+        int el = s.top();
+        if (el < mini)
+            return mini;
+
+        return el;
+    }
+
+    int getMin()
+    {
+        return mini;
+    }
+};
+
+int main()
+{
+    minStack s(5);
+
+    s.push(5);
+    s.push(1);
+    s.push(3);
+    s.push(2);
+    s.push(4);
+    cout << "top element in stack is:" << s.topElement() << endl;
+
+    s.pop();
+
+    cout << endl;
+
+    cout << "top element in stack is:" << s.topElement() << endl;
+    cout << "minimum element in the stack is:" << s.getMin() << endl;
+}
